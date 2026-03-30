@@ -1,0 +1,23 @@
+impl Solution {
+    pub fn longest_common_subsequence(text1: String, text2: String) -> i32 {
+        let chars1: Vec<char> = text1.chars().collect(); 
+        let chars2: Vec<char> = text2.chars().collect(); 
+
+        let m = chars1.len(); 
+        let n = chars2.len(); 
+
+        let mut dp = vec![vec![0; n + 1]; m + 1]; 
+
+        for i in 1..m + 1 { 
+            for j in 1..n + 1 { 
+                if chars1[i-1] == chars2[j-1] { 
+                    dp[i][j] = 1 + dp[i - 1][j - 1]; 
+                } else { 
+                    dp[i][j] = dp[i-1][j].max(dp[i][j-1]); 
+                }
+            }
+        }
+
+        dp[m][n]
+    }
+}
